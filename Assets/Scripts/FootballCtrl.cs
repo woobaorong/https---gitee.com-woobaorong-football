@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -5,24 +6,18 @@ using UnityEngine;
 
 public class FootballCtrl : MonoBehaviour
 {
-    public Transform target; // 目标位置
-    public float height = 5f; // 抛物线高度
-    public float duration = 2f; // 飞行时间
 
     void Start()
     {
-        if (target != null)
-        {
-            KickToTarget();
-        }
+        KickToTarget(2f, -3.6f, -54);//+-3.46  53-56
     }
 
-    void KickToTarget()
+    void KickToTarget(float speed, float x, float z)
     {
-        Vector3[] pathPoints = CalculateParabolaPath(transform.position, target.position, height, 10);
+        Vector3[] pathPoints = CalculateParabolaPath(transform.position, new Vector3(x, 0.13f, z), Math.Abs(transform.position.z - z) * 0.2f, 10);
 
         transform.DOKill();
-        transform.DOPath(pathPoints, duration, PathType.CatmullRom, PathMode.Full3D)
+        transform.DOPath(pathPoints, speed, PathType.CatmullRom, PathMode.Full3D)
             .SetEase(Ease.Linear)
             .OnUpdate(() =>
             {
