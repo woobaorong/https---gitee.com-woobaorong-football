@@ -19,7 +19,7 @@ public class FootballCtrl : MonoBehaviour
 
     void KickToTarget(float speed, float x, float z)
     {
-        Vector3[] pathPoints = CalculateParabolaPath(transform.position, new Vector3(x, 0.13f, z), Math.Abs(transform.position.z - z) * 0.2f, 10);
+        Vector3[] pathPoints = CalculateParabolaPath(transform.position, new Vector3(x, 0.13f, z), Math.Abs(transform.position.z - z) * 0.3f, 10);
 
         transform.DOKill();
         transform.DOPath(pathPoints, speed, PathType.CatmullRom, PathMode.Full3D)

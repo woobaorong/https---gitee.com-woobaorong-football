@@ -12,7 +12,6 @@ public class ShouMenYuanCtrl : MonoBehaviour
     void Start()
     {
         //anim = GetComponent<Animator>();
-        this.Jump();
     }
 
     void Update()
@@ -20,12 +19,7 @@ public class ShouMenYuanCtrl : MonoBehaviour
 
     }
 
-    void Jump()
-    {
-        //anim.SetBool("sasd", true);
-        var pos = transform.position;
-        transform.DOLocalMove(new Vector3(1.5f, pos.y, pos.z), 1.2f);
-    }
+    
 
     public void OnAnimFinshed()
     {
