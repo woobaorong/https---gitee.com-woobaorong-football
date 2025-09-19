@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class FootballGameCtrl : BaseComponet
 {
@@ -13,20 +14,45 @@ public class FootballGameCtrl : BaseComponet
 
     public Transform ball;
 
+    public Transform hand;
+
+    public Transform handWorld;
+
     void Start()
     {
         Time.timeScale = 0.2f;
         //Time.timeScale = 1f;
-        ball.GetComponent<FootballCtrl>().KickToTarget(2f, -3.6f, -54);//+-3.46  53-56
-        DelayAction(1, () =>
+        this.KickSuccess();
+        //this.kickFail();
+    }
+
+    void kickFail()
+    {
+        ball.GetComponent<FootballCtrl>().KickToPos(2f, -3.46f, -54);     //+-3.46  53-56
+        float time = 0.5f;
+        DelayAction(time + 0.4f, () =>
         {
             SmyJump(1.5f, 1.2f);
         });
-        DelayAction(1, () =>
+        DelayAction(time, () =>
         {
-            SetAnim(0);
+            SetAnim(3);
         });
+    }
 
+    void KickSuccess()
+    {
+        handWorld.position += new Vector3(4, 0, 0);
+        ball.GetComponent<FootballCtrl>().KickToTarget(handWorld, hand, 1.1f, 0.5f);
+        float time = 0.5f;
+        DelayAction(time + 0.1f, () =>
+        {
+            SmyJump(0.5f, 1.2f);
+        });
+        DelayAction(time, () =>
+        {
+            SetAnim(-3);
+        });
     }
 
     void MoveAround()
