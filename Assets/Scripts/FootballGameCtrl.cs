@@ -20,7 +20,11 @@ public class FootballGameCtrl : BaseComponet
         ball.GetComponent<FootballCtrl>().KickToTarget(2f, -3.6f, -54);//+-3.46  53-56
         DelayAction(1, () =>
         {
-            SmyJump(1.5f, 1.2f, 0);
+            SmyJump(1.5f, 1.2f);
+        });
+        DelayAction(1, () =>
+        {
+            SetAnim(0);
         });
 
     }
@@ -42,7 +46,14 @@ public class FootballGameCtrl : BaseComponet
         });
     }
 
-    void SmyJump(float x, float time, int type)
+    void SmyJump(float x, float time)
+    {
+
+        var pos = smy.transform.position;
+        smy.transform.DOLocalMove(new Vector3(x, pos.y, pos.z), time);
+    }
+
+    void SetAnim(int type)
     {
         var anim = smy.Find("ShouMenYuan").GetComponent<Animator>();
         if (type == -3)
@@ -73,8 +84,6 @@ public class FootballGameCtrl : BaseComponet
         {
             anim.SetBool("jump_right_fail", true);
         }
-        var pos = smy.transform.position;
-        smy.transform.DOLocalMove(new Vector3(x, pos.y, pos.z), time);
     }
 
 }
