@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-  productGUID: 00000000000000000000000000000000
+  productGUID: 37383d7ba09dcd341b8a799025695c15
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -770,11 +770,13 @@ PlayerSettings:
   metroDefaultTileSize: 1
   metroTileForegroundText: 2
   metroTileBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21568628, a: 0}
-  metroSplashScreenBackgroundColor: {r: 0.12941177, g: 0.17254902, b: 0.21568628, a: 1}
+  metroSplashScreenBackgroundColor: {r: 0.12941177, g: 0.17254902, b: 0.21568628,
+    a: 1}
   metroSplashScreenUseBackgroundColor: 0
   syncCapabilities: 0
   platformCapabilities:
     WindowsStoreApps:
+      EnterpriseAuthentication: False
       VideosLibrary: False
       Location: False
       HumanInterfaceDevice: False
@@ -787,7 +789,6 @@ PlayerSettings:
       InternetClientServer: False
       OfflineMapsManagement: False
       Objects3D: False
-      InternetClient: False
       RemoteSystem: False
       BlockedChatMessages: False
       PhoneCall: False
@@ -809,10 +810,10 @@ PlayerSettings:
       PointOfService: False
       RecordedCallsFolder: False
       Contacts: False
-      Proximity: False
+      InternetClient: False
       CodeGeneration: False
       BackgroundMediaPlayback: False
-      EnterpriseAuthentication: False
+      Proximity: False
   metroTargetDeviceFamilies:
     Desktop: False
     Holographic: False
@@ -876,7 +877,7 @@ PlayerSettings:
   cloudProjectId: 87c27dda-04ca-4800-b513-0fea187198cd
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
+  projectName: Football
   organizationId: woohehe
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 1

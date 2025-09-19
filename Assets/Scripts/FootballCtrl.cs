@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
+/// <summary>
+/// 踢球前球的轨迹和结果已经确定
+/// 成功-三个动作并设置位移
+/// 失败-反方向
+/// </summary>
 public class FootballCtrl : MonoBehaviour
 {
 

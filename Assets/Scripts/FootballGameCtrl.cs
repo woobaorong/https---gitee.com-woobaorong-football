@@ -24,7 +24,7 @@ public class FootballGameCtrl : MonoBehaviour
         //transform.DOKill();
         transform.DOPath(points, 3, PathType.CatmullRom, PathMode.Full3D)
         //.SetEase(Ease.Linear)
-        .SetLookAt(lookat.position)  //lookat z轴
+        //.SetLookAt(lookat.position)  //lookat z轴
         .OnComplete(() =>
         {
             Debug.Log("---OnComplete---");
