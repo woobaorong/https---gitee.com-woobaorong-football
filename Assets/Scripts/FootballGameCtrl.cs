@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class FootballGameCtrl : MonoBehaviour
+public class FootballGameCtrl : BaseComponet
 {
     public GameObject[] path;
 
@@ -17,6 +17,12 @@ public class FootballGameCtrl : MonoBehaviour
     {
         Time.timeScale = 0.2f;
         //Time.timeScale = 1f;
+        ball.GetComponent<FootballCtrl>().KickToTarget(2f, -3.6f, -54);//+-3.46  53-56
+        DelayAction(1, () =>
+        {
+            SmyJump(1.5f, 1.2f, 0);
+        });
+
     }
 
     void MoveAround()
@@ -36,12 +42,39 @@ public class FootballGameCtrl : MonoBehaviour
         });
     }
 
-    void SmyJump()
+    void SmyJump(float x, float time, int type)
     {
         var anim = smy.Find("ShouMenYuan").GetComponent<Animator>();
-        anim.SetBool("sasd", true);
+        if (type == -3)
+        {
+            anim.SetBool("jump_left_fail", true);
+        }
+        else if (type == -2)
+        {
+            anim.SetBool("jump_up_left", true);
+        }
+        else if (type == -1)
+        {
+            anim.SetBool("jump_left", true);
+        }
+        else if (type == 0)
+        {
+            anim.SetBool("jump_up", true);
+        }
+        else if (type == 1)
+        {
+            anim.SetBool("jump_right", true);
+        }
+        else if (type == 2)
+        {
+            anim.SetBool("jump_up_right", true);
+        }
+        else if (type == 3)
+        {
+            anim.SetBool("jump_right_fail", true);
+        }
         var pos = smy.transform.position;
-        smy.transform.DOLocalMove(new Vector3(1.5f, pos.y, pos.z), 1.2f);
+        smy.transform.DOLocalMove(new Vector3(x, pos.y, pos.z), time);
     }
 
 }

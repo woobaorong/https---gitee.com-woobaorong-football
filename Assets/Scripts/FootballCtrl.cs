@@ -14,10 +14,10 @@ public class FootballCtrl : MonoBehaviour
 
     void Start()
     {
-        KickToTarget(2f, -3.6f, -54);//+-3.46  53-56
+        //KickToTarget(2f, -3.6f, -54);//+-3.46  53-56
     }
 
-    void KickToTarget(float speed, float x, float z)
+    public void KickToTarget(float speed, float x, float z)
     {
         Vector3[] pathPoints = CalculateParabolaPath(transform.position, new Vector3(x, 0.13f, z), Math.Abs(transform.position.z - z) * 0.3f, 10);
 

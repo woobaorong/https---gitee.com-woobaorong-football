@@ -17775,8 +17775,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: []
   lookat: {fileID: 0}
-  smy: {fileID: 0}
-  ball: {fileID: 0}
+  smy: {fileID: 808521452}
+  ball: {fileID: 1786508349}
 --- !u!4 &824112727
 Transform:
   m_ObjectHideFlags: 0
