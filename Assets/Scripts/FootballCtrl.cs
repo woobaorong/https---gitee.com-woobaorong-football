@@ -19,25 +19,9 @@ public class FootballCtrl : MonoBehaviour
         //KickToTarget(2f, -3.6f, -54);//+-3.46  53-56
     }
 
-    void MoveByPth(Transform target, float time)
-    {
-        Vector3[] points = new Vector3[3];
-        points[0] = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        points[1] = new Vector3((transform.position.x + target.position.x) / 2, (transform.position.y + target.position.y) / 2 + 1, (transform.position.z + target.position.z) / 2);
-        points[2] = target.position;
-        transform.DOPath(points, 3, PathType.CatmullRom, PathMode.Full3D)
-        //.SetEase(Ease.Linear)
-        .OnComplete(() =>
-        {
-            Debug.Log("---OnComplete---");
-            //切换父节点
-        });
-    }
-
     public void KickToPos(float speed, float x, float z)
     {
-        Vector3[] pathPoints = CalculateParabolaPath(transform.position, new Vector3(x, 0.13f, z), Math.Abs(transform.position.z - z) * 0.3f, 10);
-
+        Vector3[] pathPoints = CalculateParabolaPath(transform.position, new Vector3(x, 0.13f, z), Math.Abs(transform.position.z - z) * 0.13f, 10);
         transform.DOKill();
         transform.DOPath(pathPoints, speed, PathType.CatmullRom, PathMode.Full3D)
             .SetEase(Ease.Linear)
