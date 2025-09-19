@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -20,38 +22,76 @@ public class FootballGameCtrl : BaseComponet
 
     void Start()
     {
-        Time.timeScale = 0.2f;
-        //Time.timeScale = 1f;
-        this.KickSuccess();
-        //this.kickFail();
+
+        Time.timeScale = 0.25f;
+        Time.timeScale = 0.75f;
+
+        float kickSpeed = 0.9f;  //0.6-0.9
+        float v = GameUtils.GetRandom(0, 200) - 100;  //改成方向值
+        float value = Math.Abs(v / 100);
+        int r = GameUtils.GetRandom(0, 100);
+        if (Math.Abs(v) < 30)
+        {
+            if (r * kickSpeed > 30)
+            {
+                this.KickSuccess(v > 0 ? 1 : -1, value);
+            }
+            else
+            {
+                this.kickFail(v > 0 ? 1 : -1, value);
+            }
+        }
+        else
+        {
+            if (r * kickSpeed > 70)
+            {
+                this.KickSuccess(v > 0 ? 1 : -1, value);
+            }
+            else
+            {
+                this.kickFail(v > 0 ? 1 : -1, value);
+            }
+        }
     }
 
-    void kickFail()
+    void kickFail(int dir, float value)
     {
-        ball.GetComponent<FootballCtrl>().KickToPos(2f, -3.46f, -54);     //+-3.46  53-56
-        float time = 0.5f;
-        DelayAction(time + 0.4f, () =>
-        {
-            SmyJump(1.5f, 1.2f);
-        });
-        DelayAction(time, () =>
-        {
-            SetAnim(3);
-        });
-    }
-
-    void KickSuccess()
-    {
-        handWorld.position += new Vector3(4, 0, 0);
-        ball.GetComponent<FootballCtrl>().KickToTarget(handWorld, hand, 1.1f, 0.5f);
-        float time = 0.5f;
+        //int dir = 1;
+        //float value = 1f;
+        ball.GetComponent<FootballCtrl>().KickToPos(1.6f, -3.46f * value * dir, -54);     //+-3.46  53-56
+        float time = 0.05f;
         DelayAction(time + 0.1f, () =>
         {
-            SmyJump(0.5f, 1.2f);
+            SmyJump(0, 0.8f);
         });
         DelayAction(time, () =>
         {
-            SetAnim(-3);
+            SetAnim(-3 * dir);
+        });
+    }
+
+    void KickSuccess(int dir, float value)
+    {
+        //int dir = -1;
+        //float value = 1f;
+        handWorld.position += new Vector3(-5.5f * dir * value, 0, 0);
+        ball.GetComponent<FootballCtrl>().KickToTarget(handWorld, hand, 0.6f, 0.4f * value);
+        float time = 0.05f;
+        DelayAction(time + 0.1f, () =>
+        {
+            SmyJump(-3.5f * dir * value, 1.2f);
+        });
+        DelayAction(time, () =>
+        {
+            if (value < 0.2f)
+            {
+                SetAnim(0);
+            }
+            else
+            {
+                SetAnim(-2 * dir);
+            }
+
         });
     }
 
