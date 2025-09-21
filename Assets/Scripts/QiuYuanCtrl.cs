@@ -8,9 +8,17 @@ public class QiuYuanCtrl : MonoBehaviour
 
     public FootballGameCtrl gc;
 
+    Animator anim;
+
     void Start()
     {
+        anim = GetComponent<Animator>();
+        
+    }
 
+    public void Begin()
+    {
+        anim.SetBool("begin", true);
     }
 
     public void Invoke_InteractWithBall()

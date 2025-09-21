@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR;
 
 public class FootballGameCtrl : BaseComponet
@@ -22,20 +23,44 @@ public class FootballGameCtrl : BaseComponet
 
     public Transform cam;
 
+    public QiuYuanCtrl qiuYuanCtrl;
+
     public static bool isPalyback;
     public static float kickSpeed;
     public static float v;
     public static float value;
     public static int r;
 
+    public Slider sliderSpeed;
+
+    public Slider sliderDir;
+
+    void Start()
+    {
+        if (isPalyback)
+        {
+            sliderDir.transform.parent.gameObject.SetActive(false);
+            DelayAction(1, () =>
+            {
+                qiuYuanCtrl.Begin();
+            });
+        }
+    }
+
+    public void Begin()
+    {
+        qiuYuanCtrl.Begin();
+    }
 
     public void Kick()
     {
         if (!isPalyback)
         {
             Time.timeScale = 0.75f;
-            kickSpeed = 0.9f;  //0.6-0.9
-            v = GameUtils.GetRandom(0, 200) - 100;  //改成方向值
+            //kickSpeed = 0.9f;  //0.6-0.9
+            kickSpeed = sliderSpeed.value;
+            //v = GameUtils.GetRandom(0, 200) - 100;  //改成方向值
+            v = sliderDir.value * 100;
             value = Math.Abs(v / 100);
             r = GameUtils.GetRandom(0, 100);
             isPalyback = true;
