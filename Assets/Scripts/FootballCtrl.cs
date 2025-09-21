@@ -35,6 +35,7 @@ public class FootballCtrl : MonoBehaviour
                 Debug.Log("Ball reached target!");
                 // 落地后的反弹效果
                 BounceAfterLanding();
+                if (!FootballGameCtrl.isPalyback) GameUtils.PlayerAudioEffect("lose", gameObject);
             });
     }
 
@@ -103,6 +104,8 @@ public class FootballCtrl : MonoBehaviour
     bool isBegin;
     float delta;
 
+    bool isPlayedAudio;
+
     void Update()
     {
         if (!isBegin) return;
@@ -129,6 +132,11 @@ public class FootballCtrl : MonoBehaviour
         else
         {
             transform.position = target.position;
+            if (!FootballGameCtrl.isPalyback && !isPlayedAudio)
+            {
+                isPlayedAudio = true;
+                GameUtils.PlayerAudioEffect("win", gameObject);
+            }
         }
     }
 

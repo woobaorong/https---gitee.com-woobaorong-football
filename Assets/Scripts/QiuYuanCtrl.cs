@@ -7,7 +7,7 @@ public class QiuYuanCtrl : MonoBehaviour
 {
 
     public FootballGameCtrl gc;
-    
+
     void Start()
     {
 
@@ -15,6 +15,7 @@ public class QiuYuanCtrl : MonoBehaviour
 
     public void Invoke_InteractWithBall()
     {
+        if (!FootballGameCtrl.isPalyback) GameUtils.PlayerAudioEffect("kick", gameObject);
         //EditorApplication.isPaused = true;
         gc.Kick();
     }

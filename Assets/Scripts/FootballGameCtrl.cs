@@ -118,14 +118,15 @@ public class FootballGameCtrl : BaseComponet
     }
 
     void CameraMoveAround()
-    {Vector3 lockedEulerAngles = new Vector3(30f, 0f, 0f);
+    {
+        Vector3 lockedEulerAngles = new Vector3(30f, 0f, 0f);
         Vector3[] points = new Vector3[path.Length];
         for (int i = 0; i < points.Length; i++)
         {
             points[i] = path[i].transform.position;
         }
         //transform.DOKill();
-        cam.DOPath(points, 4, PathType.CatmullRom, PathMode.Full3D)
+        cam.DOPath(points, 3.3f, PathType.CatmullRom, PathMode.Full3D)
          .SetOptions(false) // 禁用自动路径旋转
         .OnUpdate(() =>
         {
