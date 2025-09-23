@@ -29,14 +29,17 @@ public class FootballGameCtrl : BaseComponet
     public static float kickSpeed;
     public static float v;
     public static float value;
-    public static int r;
 
     public Slider sliderSpeed;
-
     public Slider sliderDir;
+
+    public static int gameCount = 1;
+    public static int gameTrun = 4;
+    public static int[] gameRates = new int[gameTrun];
 
     void Start()
     {
+        Time.timeScale = 1;
         if (isPalyback)
         {
             sliderDir.transform.parent.gameObject.SetActive(false);
@@ -44,6 +47,10 @@ public class FootballGameCtrl : BaseComponet
             {
                 qiuYuanCtrl.Begin();
             });
+        }
+        else
+        {
+            GameUtils.Find("Canvas/UI/Text").GetComponent<Text>().text = "第" + gameCount + "局";
         }
     }
 
@@ -62,7 +69,6 @@ public class FootballGameCtrl : BaseComponet
             //v = GameUtils.GetRandom(0, 200) - 100;  //改成方向值
             v = sliderDir.value * 100;
             value = Math.Abs(v / 100);
-            r = GameUtils.GetRandom(0, 100);
             isPalyback = true;
             DelayAction(4, () =>
             {
@@ -76,26 +82,31 @@ public class FootballGameCtrl : BaseComponet
             isPalyback = false;
         }
 
-
         if (Math.Abs(v) < 30)
         {
-            if (r * kickSpeed > 30)
+            //中间
+            if (kickSpeed < 0.8f)
             {
+                gameRates[gameCount - 1] = 1;
                 this.KickSuccess(v > 0 ? 1 : -1, value);
             }
             else
             {
+                gameRates[gameCount - 1] = 0;
                 this.kickFail(v > 0 ? 1 : -1, value);
             }
         }
         else
         {
-            if (r * kickSpeed > 70)
+            //两侧
+            if (kickSpeed < 0.6f)
             {
+                gameRates[gameCount - 1] = 1;
                 this.KickSuccess(v > 0 ? 1 : -1, value);
             }
             else
             {
+                gameRates[gameCount - 1] = 0;
                 this.kickFail(v > 0 ? 1 : -1, value);
             }
         }
@@ -151,8 +162,8 @@ public class FootballGameCtrl : BaseComponet
             points[i] = path[i].transform.position;
         }
         //transform.DOKill();
-        cam.DOPath(points, 3.3f, PathType.CatmullRom, PathMode.Full3D)
-         .SetOptions(false) // 禁用自动路径旋转
+        cam.DOPath(points, 3f, PathType.CatmullRom, PathMode.Full3D)
+        .SetOptions(false) // 禁用自动路径旋转
         .OnUpdate(() =>
         {
             // 先进行LookAt
@@ -170,7 +181,25 @@ public class FootballGameCtrl : BaseComponet
         //.SetLookAt(lookat.position)  //lookat z轴
         .OnComplete(() =>
         {
+            int win = 0;
+            int lose = 0;
+            foreach (int r in gameRates)
+            {
+                if (r == 0) lose++;
+                else win++;
+            }
             Debug.Log("---OnComplete---");
+            if (gameCount >= gameTrun)
+            {
+
+                GameUtils.Find("/Canvas/UI/Result").GetComponent<Text>().text = win + "胜 - " + lose + "负";
+            }
+            else
+            {
+                gameCount++;
+                GameUtils.ExchangeScene("FootballScene");
+            }
+
         });
     }
 
