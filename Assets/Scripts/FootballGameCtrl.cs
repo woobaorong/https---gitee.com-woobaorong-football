@@ -34,7 +34,7 @@ public class FootballGameCtrl : BaseComponet
     public Slider sliderDir;
 
     public static int gameCount = 1;
-    public static int gameTrun = 4;
+    public static int gameTrun = 3;
     public static int[] gameRates = new int[gameTrun];
 
     void Start()
@@ -191,8 +191,8 @@ public class FootballGameCtrl : BaseComponet
             Debug.Log("---OnComplete---");
             if (gameCount >= gameTrun)
             {
-
-                GameUtils.Find("/Canvas/UI/Result").GetComponent<Text>().text = win + "胜 - " + lose + "负";
+                GameUtils.Find("Canvas/Result").gameObject.SetActive(true);
+                GameUtils.Find("Canvas/Result").GetComponent<Text>().text = win + "胜 - " + lose + "负";
             }
             else
             {
