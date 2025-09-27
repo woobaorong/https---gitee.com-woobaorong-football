@@ -36,6 +36,7 @@ public class FootballCtrl : MonoBehaviour
                 // 落地后的反弹效果
                 BounceAfterLanding();
                 if (!FootballGameCtrl.isPalyback) GameUtils.PlayerAudioEffect("lose", gameObject);
+                EventBus.GetInstance().Board(EventType.win_or_lose, MessageObj.GetIns());
             });
     }
 
@@ -132,10 +133,11 @@ public class FootballCtrl : MonoBehaviour
         else
         {
             transform.position = target.position;
-            if (!FootballGameCtrl.isPalyback && !isPlayedAudio)
+            if (!isPlayedAudio)
             {
                 isPlayedAudio = true;
-                GameUtils.PlayerAudioEffect("win", gameObject);
+                if (!FootballGameCtrl.isPalyback)GameUtils.PlayerAudioEffect("win", gameObject);
+                EventBus.GetInstance().Board(EventType.win_or_lose, MessageObj.GetIns());
             }
         }
     }

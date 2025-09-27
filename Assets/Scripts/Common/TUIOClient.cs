@@ -10,7 +10,7 @@ using System.Collections.Generic;
 public class TUIOClient : MonoBehaviour
 {
     public int port = 3333; // TUIO 默认端口
-    private UdpClient udpClient;
+    public static UdpClient udpClient;
     private Thread receiveThread;
 
     // 保存当前触摸点
@@ -18,11 +18,14 @@ public class TUIOClient : MonoBehaviour
 
     void Start()
     {
-        udpClient = new UdpClient(port);
-        receiveThread = new Thread(new ThreadStart(ReceiveData));
-        receiveThread.IsBackground = true;
-        receiveThread.Start();
-        Debug.Log("TUIO Receiver started on port " + port);
+        if (udpClient == null)
+        {
+            udpClient = new UdpClient(port);
+            receiveThread = new Thread(new ThreadStart(ReceiveData));
+            receiveThread.IsBackground = true;
+            receiveThread.Start();
+            Debug.Log("TUIO Receiver started on port " + port);
+        }
     }
 
     void ReceiveData()

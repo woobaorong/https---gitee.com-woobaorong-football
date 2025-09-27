@@ -51,6 +51,15 @@ public class FootballGameCtrl : BaseComponet
         else
         {
             GameUtils.Find("Canvas/UI/Text").GetComponent<Text>().text = "第" + gameCount + "局";
+            GameUtils.Find("Canvas/UI/TextBig").GetComponent<Text>().text = "第" + gameCount + "局";
+            GameUtils.Find("Canvas/UI/Text").SetActive(false);
+            GameUtils.Find("Canvas/UI/TextBig").SetActive(true);
+            DelayAction(2, () =>
+            {
+                GameUtils.Find("Canvas/UI/Text").SetActive(true);
+                GameUtils.Find("Canvas/UI/TextBig").SetActive(false);
+            });
+
         }
     }
 

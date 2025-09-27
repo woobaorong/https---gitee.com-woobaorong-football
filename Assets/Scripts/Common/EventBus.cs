@@ -155,4 +155,5 @@ public enum EventType
     net_error,//网络错误
     action,//动作
     cut_number,
+    win_or_lose
 }
