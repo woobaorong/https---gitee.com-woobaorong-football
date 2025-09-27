@@ -243,4 +243,20 @@ public class FootballGameCtrl : BaseComponet
         }
     }
 
+
+    Vector3 GetScreenWorldPos(Vector2 pos)
+    {
+        //Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
+        Ray ray = Camera.main.ScreenPointToRay(pos);
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            if (hit.collider.gameObject.name == "Plane")
+            {
+                Debug.Log(hit.point.x + " --xxx-- " + hit.point.z);
+                return hit.point;
+            }
+        }
+        return Vector3.zero;
+    }
+
 }
